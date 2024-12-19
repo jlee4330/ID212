@@ -79,3 +79,24 @@
     transform: translateY(-5px); /* 흔들림 줄임 */
   }
 }
+
+.scroll-container {
+  flex: 1; 
+  overflow-x: scroll; /* 가로 스크롤로 변경 */
+  scroll-snap-type: x mandatory; /* 가로 스크롤 스냅 */
+  display: flex;
+  flex-direction: row; /* 가로 방향으로 아이템 배치 */
+  align-items: center;
+}
+
+.section {
+  flex-shrink: 0;
+  width: 100%; /* 섹션의 가로 폭 설정 */
+  height: auto; /* 높이는 자동으로, 혹은 특정 값 지정 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+  margin: 0 100px; /* 가로로 간격을 주기 위해 left/right margin 사용 */
+  animation: bounce 5s infinite ease-in-out; /* 애니메이션 유지 */
+}
