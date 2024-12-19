@@ -1,17 +1,52 @@
 .page {
   background-color: black; /* 검정 배경 */
-  height: 100vh;
   display: flex;
-  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  cursor: pointer; /* 화면 클릭 가능 표시 */
+}
+
+.scroll-container {
+  flex: 1; /* 왼쪽 영역의 비율 */
+  overflow-y: scroll; /* 세로 스크롤 가능 */
+  scroll-snap-type: y mandatory;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.grid {
+.section {
+  flex-shrink: 0;
+  width: 60%; /* 왼쪽 GIF 크기 */
+  height: 60%; /* GIF 높이 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+ 
+  margin: 100px 0;
+  animation: bounce 5s infinite ease-in-out; /* 애니메이션 추가 */
+}
+
+.section img {
+  width: 120%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.section:hover img {
+  transform: rotate(5deg) scale(1.1); /* 호버 시 회전 및 확대 */
+  filter: brightness(1.2);
+}
+
+.grid-container {
+  flex: 2; /* 오른쪽 영역의 비율 */
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3x3 레이아웃 */
-  gap: 20px; /* 이미지 간격 */
-  width: 90%; /* 그리드의 너비를 더 키움 */
-  height: 90%; /* 그리드의 높이를 더 키움 */
+  grid-template-columns: repeat(3, 1fr); /* 3x3 그리드 */
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  padding: 10px;
 }
 
 .grid-item {
@@ -19,99 +54,28 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  animation: glitch 5s infinite; /* 간단한 애니메이션 */
-}
-
-@keyframes glitch {
-  0% {
-    transform: translate(0, 0);
-  }
-  20% {
-    transform: translate(5px, -5px);
-  }
-  40% {
-    transform: translate(-5px, 5px);
-  }
-  60% {
-    transform: translate(5px, 5px);
-  }
-  80% {
-    transform: translate(-5px, -5px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
+  animation: hueChange 10s infinite; /* 색상 변화 애니메이션 */
 }
 
 .grid-item img {
-  max-width: 190%; /* GIF 크기를 더 키움 */
-  max-height: 190%; /* GIF 크기를 더 키움 */
-  object-fit: cover; /* GIF를 그리드에 맞춤 */
-  animation: hue 10s infinite; /* 색상 변화 */
-}
-
-@keyframes hue {
-  0% {
-    filter: hue-rotate(0deg);
-  }
-  100% {
-    filter: hue-rotate(360deg);
-  }
-}
-
-.grid-item img {
-  transition: transform 0.3s, filter 0.3s;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .grid-item:hover img {
-  transform: scale(1.2) rotate(10deg); /* 마우스 오버 시 확대 및 회전 */
-  filter: brightness(1.5) hue-rotate(90deg); /* 색상 변경 */
+  transform: scale(1.2) rotate(5deg); /* 호버 시 확대 및 회전 */
+  filter: brightness(1.5);
 }
 
-.grid-item img {
-  mix-blend-mode: screen;
-  opacity: 0.8;
-}
 
-/* 기존 CSS 유지 */
 
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.8); /* 반투명 배경 */
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  z-index: 10; /* 가장 앞에 표시되도록 설정 */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.popup button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: white;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.popup button:hover {
-  background-color: gray;
-  color: white;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -60%);
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
   }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
+  50% {
+    transform: translateY(-5px); /* 흔들림 줄임 */
   }
 }
